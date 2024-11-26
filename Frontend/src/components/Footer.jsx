@@ -20,15 +20,15 @@ const Footer = () => {
                 <nav className='footer-nav'>
                     Account
                     <ul>
-                        <li><Link className='link' to="/profile" >Sign Up</Link></li>
-                        <li><Link className='link' to="/profile" >Sign In</Link></li>
+                        <li><Link className='footer-link' to="/account" >Sign Up</Link></li>
+                        <li><Link className='footer-link' to="/account" >Sign In</Link></li>
                     </ul>
                 </nav>
                 <nav className='footer-nav'>
                     Discover
                     <ul>
-                        <li><Link className='link' to="/events" >Find Events</Link></li>
-                        <li><Link className='link' to="/events" >Online Events</Link></li>
+                        <li><Link className='footer-link' to="/events" >Find Events</Link></li>
+                        <li><Link className='footer-link' to="/events" >Online Events</Link></li>
                     </ul>
                 </nav>
                 <nav className='footer-nav'>
