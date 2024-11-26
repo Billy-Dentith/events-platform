@@ -1,0 +1,67 @@
+.footer {
+  width: 100%;
+  background-color: #212121;
+  color: white;
+}
+.footer-content {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  margin: 0 16px;
+}
+.footer-content h3 {
+  padding: 25px 0;
+  margin: 0;
+  color: white;
+  border-bottom: solid #c5c4c4;
+}
+.footer-content h5 {
+    margin: 10px 15px 15px;
+  }
+.footer-content .sign-up-link {
+  text-decoration: none;
+  color: white;
+  border: solid white;
+  border-radius: 8px;
+  padding: 10px;
+  margin-left: 20px;
+}
+.footer-socials {
+  margin: 0 10px 25px 10px;
+}
+.footer-socials h4 {
+  margin: 15px 0;
+}
+.footer-socials-links {
+  display: flex;
+  justify-content: space-around;
+}
+.footer-socials-links .icons {
+  font-size: 30px;
+  cursor: pointer;
+}
+.footer-links {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+.footer-nav {
+  width: 30%;
+  margin: 10px;
+  color: white;
+}
+.footer-nav ul {
+  list-style: none;
+  padding-left: 10px;
+}
+.footer-nav li {
+  color: #c5c4c4;
+  margin: 5px 0;
+}
+.footer-nav .link {
+  text-decoration: none;
+  color: inherit;
+}
+.copyright-logo {
+  height: 11px;
+}
