@@ -1,0 +1,83 @@
+.event-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 0 10px;
+    background-color: #e8f5e9;
+    border: solid #4caf50;
+    border-radius: 8px;
+    box-shadow: 5px 5px 5px light-dark(lightgray, rgba(0, 0, 0, 0.461));
+    width: 45%;
+    color: rgb(0, 33, 0);
+  }
+  .event-card h3 {
+    margin-top: 15px;
+    margin-bottom: 0;
+  }
+  .event-desc {
+    display: flex;
+    flex-direction: row;
+    align-items: start;
+    gap: 5px;
+    margin: 10px 0;
+  }
+  #info {
+    min-width: 16px;
+    margin-top: 3px;
+  }
+  .event-desc p {
+    padding: 0;
+    margin: 0;
+  }
+  .event-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 15px;
+    column-gap: 5px;
+  }
+  .event-info p {
+    padding: 0;
+    margin: 6px 0;
+  }
+  .event-card .button {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    background-color: #4caf50;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    margin: 0 0 10px;
+  }
+  .event-card .button:disabled {
+    background-color: #a5d6a7;
+    cursor: default;
+  }
+  .google-button {
+    border: solid #4caf50;
+    border-radius: 8px;
+    cursor: pointer;
+    color: rgb(0, 33, 0);
+    background-color: white;
+    padding: 5px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 100%;
+    margin: 0 0 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+  }
+  .google-icon {
+    font-size: 30px;
+  }
+  .google-button p {
+    margin: 0;
+    padding: 0;
+  }
+  

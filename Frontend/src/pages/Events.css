@@ -1,0 +1,16 @@
+.events-page {
+  margin: auto;
+  max-width: 1000px;
+}
+.events-page h1 {
+  margin: 20px 10px;
+}
+.events-list {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  gap: 10px;
+}
