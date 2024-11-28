@@ -12,7 +12,7 @@ const userSchema = new mongoose.Schema({
   role: {
     type: String,
     required: true,
-    enum: ["attendee", "admin"],
+    enum: ["attendee", "staff", "admin"],
   },
   createdAt: { type: Date, default: Date.now },
   events: { type: [mongoose.Schema.Types.ObjectId], ref: "Event", default: [] }, 
