@@ -1,0 +1,21 @@
+.profile-page {
+  margin: auto;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+.profile-page h1 {
+    margin: 20px 10px;
+}
+.profile-page button {
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    color: white;
+    background-color: #4CAF50;
+    padding: 10px 20px;
+    font-size: 18px;
+    font-weight: bold;
+    width: 80%;
+    margin: 20px auto;
+}

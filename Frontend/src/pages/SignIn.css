@@ -1,0 +1,118 @@
+.sign-in-page {
+    margin: auto;
+    max-width: 700px;
+  }
+.sign-in-tabs {
+  display: flex;
+  justify-content: center;
+  list-style: none;
+  padding: 0;
+  margin: 30px 0 40px;
+}
+.toggle {
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0;
+  padding: 10px 20px;
+  border: 1px solid #ccc;
+  cursor: pointer;
+}
+.toggle.selected {
+  background-color: #4caf50;
+  color: white;
+}
+
+.account-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  width: 80%;
+  margin: 0 auto 50px;
+}
+.account-form label {
+  font-size: 17px;
+  font-weight: bold;
+  margin-bottom: 5px;
+  width: 100%;
+}
+.account-form input {
+  width: 100%;
+  border-radius: 8px;
+  border: solid 1px;
+  margin-bottom: 20px;
+  padding: 5px 10px;
+  font-size: 17px;
+  align-self: flex-start;
+  box-sizing: border-box;
+}
+.account-form .button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background-color: #4caf50;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 80%;
+  margin: 10px 0 75px 0;
+}
+.account-form button:disabled {
+  background-color: #a5d6a7;
+}
+.account-form p {
+  margin-top: 5px;
+  height: 25px;
+}
+
+.password-checks {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+}
+.password-checks p {
+  margin: 0;
+}
+.requirements {
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  padding: 0;
+  margin: 0;
+  margin-bottom: 20px;
+  width: 100%;
+}
+.requirement {
+  margin: 0px 25px;
+}
+.requirement.black {
+  color: black;
+}
+.requirement.grey {
+  color: grey;
+}
+.check-icon.green {
+  color: #36b53a;
+  font-size: 16px;
+  transform: translate(-5px, 2px);
+  display: inline-block;
+  width: 16px;
+}
+
+@media (max-width: 768px) {
+  .sign-in-page {
+    width: 90%;
+  }
+  .account-form {
+    width: 100%;
+  }
+  .requirement {
+    font-size: 14px;
+    margin: 0;
+  }
+}
