@@ -57,3 +57,10 @@
     background-color: #A5D6A7;
     cursor: default;
   }
+
+
+  @media (max-width: 768px) { 
+    .event-card {
+      width: 85%;
+    }
+  }
