@@ -13,7 +13,7 @@ import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "./EventCard.css";
 
-const EventCard = ({ event }) => {
+const EventCard = ({ event, joinButton }) => {
   const [isAttending, setIsAttending] = useState(false); 
 
   const created_at = event.date.replace("T", " ").substring(0, 16);
@@ -66,11 +66,11 @@ const EventCard = ({ event }) => {
           <FaPeopleGroup /> {event.attendees.length} Attendees
         </p>
       </div>
-      {
+      {joinButton && (
         <button className="button" onClick={handleJoin} disabled={isAttending}>
           {isAttending ? "Attending Event" : "Join Event"}
         </button>
-      }
+      )}
     </li>
   );
 };
