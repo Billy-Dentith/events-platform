@@ -4,6 +4,7 @@ const cors = require("cors");
 const mongoose = require("mongoose");
 const apiRouter = require("./routes/api-router");
 const eventRouter = require("./routes/event-router");
+const userRouter = require("./routes/user-router");
 
 const app = express();
 
@@ -18,5 +19,7 @@ mongoose
 app.use("/api", apiRouter);
 
 apiRouter.use("/events", eventRouter); 
+
+apiRouter.use("/users", userRouter); 
 
 module.exports = app;

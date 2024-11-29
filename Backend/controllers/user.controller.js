@@ -23,3 +23,15 @@ exports.addUser = async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 };
+
+exports.getUsersEvents = async (req, res) => {
+  const { user_id } = req.params;
+
+  try {
+    const user = await User.findById(user_id).populate("events");
+
+    res.status(200).send(user.events); 
+  } catch (error) {
+    res.status(400).send({ message: "Server Error" })
+  }
+}
