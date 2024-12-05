@@ -12,8 +12,9 @@ import { auth } from "../../firebase/firebase";
 import { AuthContext } from "../context/AuthContext";
 import axios from "axios";
 import "./EventCard.css";
+import CalendarButton from "./GoogleCalendarButton";
 
-const EventCard = ({ event, joinButton }) => {
+const EventCard = ({ event, joinButton, calendarButton }) => {
   const [isAttending, setIsAttending] = useState(false); 
 
   const created_at = event.date.replace("T", " ").substring(0, 16);
@@ -70,6 +71,9 @@ const EventCard = ({ event, joinButton }) => {
         <button className="button" onClick={handleJoin} disabled={isAttending}>
           {isAttending ? "Attending Event" : "Join Event"}
         </button>
+      )}
+      {calendarButton && (
+        <CalendarButton event={event} />
       )}
     </li>
   );
