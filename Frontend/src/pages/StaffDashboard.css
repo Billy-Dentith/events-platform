@@ -1,0 +1,9 @@
+.staff-dashboard {
+  margin: auto;
+  max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+}
+.staff-dashboard h1 {
+    margin: 20px 10px;
+}
