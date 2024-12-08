@@ -45,9 +45,6 @@ exports.joinEvent = async (req, res) => {
 exports.addEvent = async(req, res) => {
   const { title, description, date, location, maxSpaces, category, organizer, cost } = req.body; 
 
-  console.log(req.body);
-  
-
   try {
     const event = new Event({
       title,
