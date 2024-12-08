@@ -41,3 +41,26 @@ exports.joinEvent = async (req, res) => {
     res.status(400).send({ message: error.message });
   }
 };
+
+exports.addEvent = async(req, res) => {
+  const { title, description, date, location, maxSpaces, category, organizer, cost } = req.body; 
+
+  try {
+    const event = new Event({
+      title,
+      description,
+      date,
+      location,
+      maxSpaces,
+      category,
+      organizer,
+      cost,
+    })
+
+    await event.save();
+
+    res.status(200).send(event);
+  } catch (error) {
+    res.status(400).send({ message: error.message })
+  }
+}
