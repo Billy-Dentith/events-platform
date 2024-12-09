@@ -64,3 +64,15 @@ exports.addEvent = async(req, res) => {
     res.status(400).send({ message: error.message })
   }
 }
+
+exports.removeEvent = async (req, res) => {
+  const { event_id } = req.params; 
+
+  try {
+    const deletedEvent = await Event.findByIdAndDelete(event_id)
+
+    res.status(200).send(deletedEvent);
+  } catch (error) {
+    res.status(400).send({ message: error.message })
+  }
+}
