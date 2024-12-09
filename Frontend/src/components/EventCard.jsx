@@ -7,6 +7,8 @@ import {
   FaClock,
   FaCalendarDays,
   FaCircleInfo,
+  FaPencil,
+  FaRegTrashCan,
 } from "react-icons/fa6";
 import { auth } from "../../firebase/firebase";
 import { AuthContext } from "../context/AuthContext";
@@ -19,7 +21,7 @@ const EventCard = ({ event, joinButton, calendarButton }) => {
 
   const created_at = event.date.replace("T", " ").substring(0, 16);
 
-  const { user } = useContext(AuthContext);   
+  const { user, role } = useContext(AuthContext);   
 
   useEffect(() => {
     if (user) {
@@ -39,11 +41,25 @@ const EventCard = ({ event, joinButton, calendarButton }) => {
     .catch((error) => console.error(error));
   }
 
+  const handleDelete = () => {
+    axios.delete(`http://localhost:5500/api/events/${event._id}`)
+    .then((response) => console.log(response.data))
+    .catch((error) => console.error(error));
+  }
+
   return (
     <li key={event._id} className="event-card">
-      <h3>{event.title}</h3>
+      <div className="event-header">
+        <h3>{event.title}</h3>
+        {(role === "staff") && (
+          <div className="edit-delete">
+            <button className="button"><FaPencil id="icon"/></button>
+            <button className="button" onClick={handleDelete}><FaRegTrashCan id="icon"/></button>
+          </div>
+        )}
+      </div>
       <div className="event-desc">
-        <FaCircleInfo id="info" />
+        <FaCircleInfo id="info-icon" />
         <p>{event.description}</p>
       </div>
       <div className="event-info">
@@ -68,7 +84,7 @@ const EventCard = ({ event, joinButton, calendarButton }) => {
         </p>
       </div>
       {joinButton && (
-        <button className="button" onClick={handleJoin} disabled={isAttending}>
+        <button className="join-button" onClick={handleJoin} disabled={isAttending}>
           {isAttending ? "Attending Event" : "Join Event"}
         </button>
       )}
