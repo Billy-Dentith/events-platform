@@ -1,0 +1,37 @@
+.edit-event-form input {
+  width: 85%;
+  border-radius: 8px;
+  border: solid 1px;
+  margin-bottom: 15px;
+  font-size: 17px;
+  box-sizing: border-box;
+}
+.edit-event-form textarea {
+  width: 90%;
+  border-radius: 8px;
+  border: solid 1px;
+  margin-bottom: 15px;
+  font-size: 17px;
+}
+
+.edit-event-form .event-desc {
+  display: flex;
+  flex-direction: column;
+}
+.edit-event-form .event-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+.event-desc .input-div {
+  display: flex;
+  gap: 5px;
+  width: 100%;
+}
+.event-info .input-div {
+  display: flex;
+  gap: 5px;
+}
+.event-desc .date-picker {
+  width: 161%;
+}
+

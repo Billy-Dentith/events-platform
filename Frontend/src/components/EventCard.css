@@ -20,6 +20,14 @@
 .event-header h3 {
   margin: 0;
 }
+.event-header input {
+  width: 75%;
+  border-radius: 8px;
+  border: solid 1px;
+  margin-bottom: 15px;
+  font-size: 17px;
+  box-sizing: border-box;
+}
 .edit-delete {
   display: flex;
   gap: 15px;
