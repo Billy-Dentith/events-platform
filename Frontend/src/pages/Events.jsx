@@ -18,7 +18,7 @@ const Events = () => {
       <h1>Events</h1>
       <ul className='events-list'>
         {events.map((event) => (         
-          <EventCard key={event._id} event={event} joinButton={true}/>
+          <EventCard key={event._id} event={event} setEvents={setEvents} events={events} joinButton={true}/>
         ))}
       </ul>
     </div>
