@@ -7,7 +7,6 @@ import {
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import ShowHidePassword from "../components/ShowHidePassword";
-import axios from "axios";
 import { FaCheck } from "react-icons/fa6";
 import "./SignIn.css";
 import { addUser } from "../api";

@@ -10,7 +10,6 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditEvent.css";
-import axios from "axios";
 import { editEvent } from "../api";
 
 const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {

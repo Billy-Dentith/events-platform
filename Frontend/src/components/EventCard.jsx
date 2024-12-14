@@ -2,7 +2,6 @@ import React, { useContext, useEffect, useState } from "react";
 import { FaPencil, FaRegTrashCan } from "react-icons/fa6";
 import { auth } from "../../firebase/firebase";
 import { AuthContext } from "../context/AuthContext";
-import axios from "axios";
 import "./EventCard.css";
 import CalendarButton from "./GoogleCalendarButton";
 import EditEvent from "./EditEvent";

@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import "./CreateEvent.css";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addEvent } from "../api";
