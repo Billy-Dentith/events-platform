@@ -8,7 +8,7 @@ import CalendarButton from "./GoogleCalendarButton";
 import EditEvent from "./EditEvent";
 import EventInfo from "./EventInfo";
 
-const EventCard = ({ event, joinButton, calendarButton }) => {
+const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => {
   const [isAttending, setIsAttending] = useState(false);
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [eventTitle, setEventTitle] = useState(event.title)
@@ -36,11 +36,18 @@ const EventCard = ({ event, joinButton, calendarButton }) => {
       .catch((error) => console.error(error));
   };
 
-  const handleDelete = () => {
-    axios
-      .delete(`http://localhost:5500/api/events/${event._id}`)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error(error));
+  const handleDelete = (eventId) => {
+    setEvents(events.filter((event) => event._id !== eventId))
+
+    try {
+      axios
+        .delete(`http://localhost:5500/api/events/${event._id}`)
+        .then((response) => console.log(response.data))
+        .catch((error) => console.error(error));
+    } catch (error) {
+      console.error("Failed to delete event", error);
+      alert("Failed to delete event. Please try again later");
+    }
   };
 
   return (
@@ -60,7 +67,7 @@ const EventCard = ({ event, joinButton, calendarButton }) => {
             >
               <FaPencil id="icon" />
             </button>
-            <button className="button" onClick={handleDelete}>
+            <button className="button" onClick={() => handleDelete(event._id)}>
               <FaRegTrashCan id="icon" />
             </button>
           </div>

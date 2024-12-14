@@ -22,6 +22,24 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
 }
+
+.edit-event-form .save-button {
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  color: white;
+  background-color: #4caf50;
+  padding: 10px 20px;
+  font-size: 18px;
+  font-weight: bold;
+  width: 100%;
+  margin: 0 0 10px;
+}
+.edit-event-form .save-button:disabled {
+  background-color: #a5d6a7;
+  cursor: default;
+}
+
 .event-desc .input-div {
   display: flex;
   gap: 5px;
