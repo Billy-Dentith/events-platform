@@ -7,6 +7,7 @@ import "./EventCard.css";
 import CalendarButton from "./GoogleCalendarButton";
 import EditEvent from "./EditEvent";
 import EventInfo from "./EventInfo";
+import { deleteEvent, JoinEvent } from "../api";
 
 const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => {
   const [isAttending, setIsAttending] = useState(false);
@@ -25,27 +26,23 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
     }
   }, [user, event.attendees]);
 
-  const handleJoin = () => {
-    const body = {
-      uid: auth.currentUser.uid,
-    };
-
-    axios
-      .patch(`http://localhost:5500/api/events/${event._id}`, body)
-      .then((response) => console.log(response.data))
-      .catch((error) => console.error(error));
+  const handleJoin = async () => {
+    try {
+      const data = await JoinEvent(event._id, auth.currentUser.uid);
+      console.log(data);
+    } catch (error) {
+      console.error("Failed to join event: ", error.message);
+    }
   };
 
-  const handleDelete = (eventId) => {
+  const handleDelete = async (eventId) => {
     setEvents(events.filter((event) => event._id !== eventId))
 
     try {
-      axios
-        .delete(`http://localhost:5500/api/events/${event._id}`)
-        .then((response) => console.log(response.data))
-        .catch((error) => console.error(error));
+      const data = await deleteEvent(eventId);
+      console.log(data);
     } catch (error) {
-      console.error("Failed to delete event", error);
+      console.error("Failed to delete event: ", error.message);
       alert("Failed to delete event. Please try again later");
     }
   };
