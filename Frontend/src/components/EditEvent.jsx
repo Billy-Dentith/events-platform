@@ -57,7 +57,7 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
 
     try {
       axios
-        .patch(`http://localhost:5500/ap/events/${event._id}/edit`, body)
+        .patch(`http://localhost:5500/api/events/${event._id}/edit`, body)
         .then((response) => {
           console.log(response.data);
 
