@@ -10,7 +10,7 @@ import {
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditEvent.css";
-import axios from "axios";
+import { editEvent } from "../api";
 
 const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
   const [inputs, setInputs] = useState({
@@ -38,7 +38,7 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
     }));
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     setIsDisabled(true);
@@ -56,29 +56,21 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
     };
 
     try {
-      axios
-        .patch(`http://localhost:5500/api/events/${event._id}/edit`, body)
-        .then((response) => {
-          console.log(response.data);
+      const data = await editEvent(event._id, body); 
+      console.log("Event edited successfully: ", data);
 
-          setPatchStatus("Event changes saved successfully");
-          
-          Object.assign(event, body);
-          
-          setIsDisabled(false);
-          setButtonText("Save Changes");
-          setIsEditingEvent(false); 
-        })
-        .catch((error) => {
-          console.error(error);
-          
-          setPatchStatus("Unable to save changes. Please try again later.");
-          setIsDisabled(false);
-          setButtonText("Save Changes");
-        });
+      Object.assign(event, body);
+      
+      setPatchStatus("Event changes saved successfully");
+      setIsEditingEvent(false); 
     } catch (error) {
-      console.error(error.message);
-    } 
+      console.error("Failed to edit event: ", error.message);
+
+      setPatchStatus("Unable to save changes. Please try again later.");
+    } finally {
+      setIsDisabled(false);
+      setButtonText("Save Changes");
+    }
   };
 
   return (

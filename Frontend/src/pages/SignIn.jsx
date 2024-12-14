@@ -7,9 +7,9 @@ import {
 import { useNavigate } from "react-router-dom";
 import { auth } from "../../firebase/firebase";
 import ShowHidePassword from "../components/ShowHidePassword";
-import axios from "axios";
 import { FaCheck } from "react-icons/fa6";
 import "./SignIn.css";
+import { addUser } from "../api";
 
 const SignIn = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -93,15 +93,14 @@ const SignIn = () => {
         role: "attendee",
       };
 
-      await axios.post("http://localhost:5000/api/users", body)
-        .then((response) => console.log(response.data))
-        .catch((error) => console.error(error));
-
+      const data = await addUser(body);
+      console.log(data);
+      
       navigate("/");
 
       console.log("User created successfully!");
     } catch (error) {
-      console.log(error.message);
+      console.error(error.message);
     }
   };
 

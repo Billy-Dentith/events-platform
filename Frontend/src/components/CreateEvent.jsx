@@ -1,8 +1,8 @@
 import React, { useState } from "react";
 import "./CreateEvent.css";
-import axios from "axios";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import { addEvent } from "../api";
 
 const CreateEvent = () => {
   const [inputs, setInputs] = useState({
@@ -49,35 +49,29 @@ const CreateEvent = () => {
         cost: inputs.cost,
       };
 
-      await axios
-        .post("http://localhost:5500/api/events", body)
-        .then((response) => {
-          console.log(response.data);
+      const data = await addEvent(body); 
+      console.log("Event added successfully: ", data);
 
-          setPostStatus("Event posted successfully");
-          setIsDisabled(false);
-          setButtonText("Add Event");
-          setInputs({
-            title: "",
-            description: "",
-            location: "",
-            spaces: 0,
-            category: "",
-            organizer: "",
-            cost: 0,
-          });
+      setPostStatus("Event posted successfully");
+      setInputs({
+        title: "",
+        description: "",
+        location: "",
+        spaces: 0,
+        category: "",
+        organizer: "",
+        cost: 0,
+      });
+      
+      e.target.reset();
 
-          e.target.reset();
-        })
-        .catch((error) => {
-          console.error(error);
-
-          setPostStatus("Unable to post event. Please try again later.");
-          setIsDisabled(false);
-          setButtonText("Add Event");
-        });
     } catch (error) {
-      console.error(error.message);
+      console.error("Failed to create event: ", error.message);
+
+      setPostStatus("Unable to post event. Please try again later.");
+    } finally {
+      setIsDisabled(false);
+      setButtonText("Add Event");
     }
   };
 
