@@ -38,55 +38,47 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
     }));
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
 
     setIsDisabled(true);
     setButtonText("Saving Changes...");
 
-    try {
-      const body = {
-        title: eventTitle,
-        description: inputs.description,
-        date: date.toISOString(),
-        location: inputs.location,
-        maxSpaces: inputs.spaces,
-        category: inputs.category,
-        organizer: inputs.organizer,
-        cost: inputs.cost,
-      };
+    const body = {
+      title: eventTitle,
+      description: inputs.description,
+      date: date.toISOString(),
+      location: inputs.location,
+      maxSpaces: inputs.spaces,
+      category: inputs.category,
+      organizer: inputs.organizer,
+      cost: inputs.cost,
+    };
 
-      await axios
-        .patch(`http://localhost:5500/api/events/${event._id}/edit`, body)
+    try {
+      axios
+        .patch(`http://localhost:5500/ap/events/${event._id}/edit`, body)
         .then((response) => {
           console.log(response.data);
 
           setPatchStatus("Event changes saved successfully");
+          
+          Object.assign(event, body);
+          
           setIsDisabled(false);
           setButtonText("Save Changes");
           setIsEditingEvent(false); 
-          setInputs({
-            description: event.description,
-            location: event.location,
-            spaces: event.maxSpaces,
-            category: event.category,
-            organizer: event.organizer,
-            cost: event.cost,
-          });
-
-          window.location.reload();
-          e.target.reset();
         })
         .catch((error) => {
           console.error(error);
-
+          
           setPatchStatus("Unable to save changes. Please try again later.");
           setIsDisabled(false);
           setButtonText("Save Changes");
         });
     } catch (error) {
       console.error(error.message);
-    }
+    } 
   };
 
   return (
@@ -122,8 +114,8 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
           <div className="input-div">
             <FaMapLocationDot />
             <input
-              id="date"
-              name="date"
+              id="location"
+              name="location"
               placeholder={event.location}
               onChange={handleChange}
             ></input>
@@ -151,7 +143,7 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
           </div>
         </div>
         <p>{patchStatus}</p>
-        <button className="join-button" disabled={isDisabled}>
+        <button className="save-button" disabled={isDisabled}>
           {buttonText}
         </button>
       </form>
