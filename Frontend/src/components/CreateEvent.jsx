@@ -3,6 +3,7 @@ import "./CreateEvent.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addEvent } from "../api";
+import Loading from "./Loading";
 
 const CreateEvent = () => {
   const [inputs, setInputs] = useState({
@@ -18,6 +19,7 @@ const CreateEvent = () => {
   const [postStatus, setPostStatus] = useState("");
   const [buttonText, setButtonText] = useState("Add Event");
   const [isDisabled, setIsDisabled] = useState(false);
+  const [isLoading, setIsLoading] = useState(false); 
 
   const futureDatesOnly = (date) => new Date() < date;
 
@@ -34,6 +36,7 @@ const CreateEvent = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setIsLoading(true);
     setIsDisabled(true);
     setButtonText("Adding Event...");
 
@@ -70,6 +73,7 @@ const CreateEvent = () => {
 
       setPostStatus("Unable to post event. Please try again later.");
     } finally {
+      setIsLoading(false);
       setIsDisabled(false);
       setButtonText("Add Event");
     }
@@ -146,6 +150,9 @@ const CreateEvent = () => {
         >
           {buttonText}
         </button>
+        {isLoading && (
+            <Loading loadingType="spinner" />
+        )}
         <p>{postStatus}</p>
       </form>
     </div>
