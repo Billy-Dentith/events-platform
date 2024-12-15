@@ -10,6 +10,7 @@ import ShowHidePassword from "../components/ShowHidePassword";
 import { FaCheck } from "react-icons/fa6";
 import "./SignIn.css";
 import { addUser } from "../api";
+import Loading from "../components/Loading";
 
 const SignIn = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -30,6 +31,7 @@ const SignIn = () => {
     specialChar: false,
   });
   const [passwordMatches, setPasswordMatches] = useState(true);
+  const [isLoading, setIsLoading] = useState(false); 
 
   const navigate = useNavigate();
 
@@ -70,6 +72,7 @@ const SignIn = () => {
 
   const handleSignUp = async (e) => {
     e.preventDefault();
+    setIsLoading(true);
 
     if (inputs.password !== inputs.confirmPassword) {
       alert("Passwords do not match!");
@@ -101,11 +104,14 @@ const SignIn = () => {
       console.log("User created successfully!");
     } catch (error) {
       console.error(error.message);
+    } finally {
+      setIsLoading(false);
     }
   };
 
   const handleSignIn = async (e) => {
     e.preventDefault();
+    setIsLoading(true); 
 
     try {
       await signInWithEmailAndPassword(
@@ -117,6 +123,8 @@ const SignIn = () => {
       console.log("Success: ", auth.currentUser.email);
     } catch (error) {
       console.log(error);
+    } finally {
+      setIsLoading(false); 
     }
   };
 
@@ -156,6 +164,9 @@ const SignIn = () => {
             isLogin={isLogin}
           />
           <button className="button">Sign In</button>
+          {isLoading && (
+            <Loading loadingType="spinner" />
+          )}
         </form>
       ) : (
         <form className="account-form" onSubmit={handleSignUp}>
@@ -248,6 +259,9 @@ const SignIn = () => {
           >
             Sign Up
           </button>
+          {isLoading && (
+            <Loading loadingType="spinner" />
+          )}
         </form>
       )}
     </div>
