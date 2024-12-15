@@ -9,7 +9,7 @@ import {
     FaCircleInfo,
   } from "react-icons/fa6";
 
-const EventInfo = ({ event, created_at }) => {
+const EventInfo = ({ event, created_at, attendeesNumber }) => {
   return (
     <>
       <div className="event-desc">
@@ -34,7 +34,7 @@ const EventInfo = ({ event, created_at }) => {
           <FaTicket /> £{event.cost}
         </p>
         <p>
-          <FaPeopleGroup /> {event.attendees.length} Attendees
+          <FaPeopleGroup /> {attendeesNumber} / {event.maxSpaces} Attendees
         </p>
       </div>
     </>
