@@ -9,28 +9,40 @@ import EventInfo from "./EventInfo";
 import { deleteEvent, JoinEvent } from "../api";
 
 const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => {
-  const [isAttending, setIsAttending] = useState(false);
+  const [buttonText, setButtonText] = useState("Join Event");
   const [isEditingEvent, setIsEditingEvent] = useState(false);
-  const [eventTitle, setEventTitle] = useState(event.title)
+  const [eventTitle, setEventTitle] = useState(event.title);
+  const [attendeesNumber, setAttendeesNumber] = useState(event.attendees.length);
 
   const created_at = event.date.replace("T", " ").substring(0, 16);
 
   const { user, role } = useContext(AuthContext);
 
   useEffect(() => {
+    if (event.attendees.length === event.maxSpaces) {
+      setButtonText("Event Full");
+    }
+
     if (user) {
       if (event.attendees.some((el) => el._id === user.uid)) {
-        setIsAttending(true);
+        setButtonText("Attending Event");
       }
     }
   }, [user, event.attendees]);
 
   const handleJoin = async () => {
-    try {
-      const data = await JoinEvent(event._id, auth.currentUser.uid);
-      console.log(data);
-    } catch (error) {
-      console.error("Failed to join event: ", error.message);
+    if (attendeesNumber < event.maxSpaces) {
+      try {
+        const data = await JoinEvent(event._id, auth.currentUser.uid);
+        console.log(data);
+
+        setAttendeesNumber((currAttendees) => currAttendees + 1);
+        setButtonText("Attending Event");
+      } catch (error) {
+        console.error("Failed to join event: ", error.message);
+      }
+    } else {
+      console.error("Event is full");
     }
   };
 
@@ -69,15 +81,15 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
           </div>
         )}
       </div>
-      {!isEditingEvent && <EventInfo event={event} created_at={created_at} />}
+      {!isEditingEvent && <EventInfo event={event} created_at={created_at} attendeesNumber={attendeesNumber} />}
       {isEditingEvent && <EditEvent event={event} created_at={created_at} eventTitle={eventTitle} setIsEditingEvent={setIsEditingEvent} />}
       {joinButton && !isEditingEvent && (
         <button
           className="join-button"
           onClick={handleJoin}
-          disabled={isAttending}
+          disabled={buttonText === "Attending Event" || buttonText === "Event Full"}
         >
-          {isAttending ? "Attending Event" : "Join Event"}
+          {buttonText}
         </button>
       )}
       {calendarButton && !isEditingEvent && <CalendarButton event={event} />}
