@@ -3,7 +3,8 @@
   flex-direction: column;
   align-items: center;
   margin: 0 auto;
-  width: 80%;
+  width: 90%;
+  max-width: 1000px;
 }
 
 .home-top-section {
@@ -22,7 +23,6 @@
   flex-direction: column;
   justify-content: space-around;
   height: 100%;
-  margin-bottom: 20px;
   margin-right: 15px;
 }
 .opening-section h1 {
@@ -36,8 +36,6 @@
 }
 .opening-section .button {
   margin: 20px 0 0;
-}
-.opening-section button {
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -46,13 +44,17 @@
   padding: 10px 20px;
   font-size: 18px;
   font-weight: bold;
+  width: 75%;
 }
 
-.events-list {
+.featured-events {
   width: 100%;
   display: flex;
   flex-direction: column;
   margin-bottom: 50px;
+}
+.featured-events h1 {
+  margin: 10px 10px 0;
 }
 
 
@@ -62,5 +64,9 @@
   }
   .home-top-section {
     flex-direction: column;
+  }
+
+  .opening-section {
+    margin-bottom: 25px;
   }
 }
