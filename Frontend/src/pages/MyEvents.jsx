@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from 'react'
 import { AuthContext } from '../context/AuthContext';
+import { Link } from 'react-router-dom';
 import EventCard from '../components/EventCard';
 import { fetchUsersEvents } from '../api';
 import "./Events.css"
@@ -34,6 +35,17 @@ const MyEvents = () => {
       <h1>My Events</h1>
       {isLoading && (
         <Loading loadingType="calendar" />
+      )}
+      {(usersEvents.length === 0) && (
+        <div className='no-events'>
+          <h2>You've not joined any events.</h2>
+          <h2> Click the button below to view upcoming events.</h2>
+          <button>
+            <Link to="/events" className="link">
+                Find Events
+            </Link>
+          </button>
+        </div>
       )}
       <ul className='events-list'>
         {usersEvents.map((event) => (
