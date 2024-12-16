@@ -10,6 +10,7 @@ import StaffRoute from "./components/StaffRoute";
 import AuthRoute from "./components/AuthRoute";
 import Unauthorised from "./pages/Unauthorised";
 import Footer from "./components/Footer";
+import NotFound from "./pages/NotFound";
 
 function App() {
   return (
@@ -28,6 +29,7 @@ function App() {
             } />
             <Route path="/account" element={<AuthRoute />} />
             <Route path="/unauthorised" element={<Unauthorised />} />
+            <Route path="*" element={<NotFound />} />
           </Routes>
           <Footer />
         </AuthProvider>
