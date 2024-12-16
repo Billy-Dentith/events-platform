@@ -25,7 +25,7 @@ const Loading = ({ loadingType }) => {
   const style = {
     height: 300,
     width: 300,
-    margin: '200px auto',
+    margin: '100px auto',
   };
 
   const options2 = {

@@ -47,11 +47,10 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
   };
 
   const handleDelete = async (eventId) => {
-    setEvents(events.filter((event) => event._id !== eventId))
-
     try {
       const data = await deleteEvent(eventId);
       console.log(data);
+      setEvents(events.filter((event) => event._id !== eventId))
     } catch (error) {
       console.error("Failed to delete event: ", error.message);
       alert("Failed to delete event. Please try again later");

@@ -4,9 +4,13 @@ import { Link } from "react-router-dom";
 import { fetchEvents } from "../api";
 import EventCard from "../components/EventCard";
 import { AuthContext } from "../context/AuthContext";
+import Loading from "../components/Loading";
+import Error from "../components/Error";
 
 const Home = () => {
   const [featuredEvents, setFeaturedEvents] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const { user } = useContext(AuthContext);
 
@@ -24,8 +28,11 @@ const Home = () => {
           .slice(0, 4);
 
         setFeaturedEvents(featured);
+        setIsLoading(false);
       } catch (error) {
         console.error("Failed to fetch events: ", error.message);
+        setIsLoading(false);
+        setIsError(true);
       }
     };
 
@@ -53,6 +60,12 @@ const Home = () => {
       </section>
       <section className="featured-events">
         <h1>Featured Events</h1>
+        {isLoading && (
+          <Loading loadingType="calendar"/>
+        )}
+        {isError && (
+          <Error />
+        )}
         <ul className="events-list">
           {featuredEvents.map((event) => (
             <EventCard
