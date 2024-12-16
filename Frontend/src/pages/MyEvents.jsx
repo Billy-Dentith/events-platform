@@ -5,10 +5,12 @@ import EventCard from '../components/EventCard';
 import { fetchUsersEvents } from '../api';
 import "./Events.css"
 import Loading from '../components/Loading';
+import Error from '../components/Error';
 
 const MyEvents = () => {
   const [usersEvents, setUsersEvents] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const [isError, setIsError] = useState(false);
 
   const { user } = useContext(AuthContext);  
 
@@ -23,6 +25,8 @@ const MyEvents = () => {
           setIsLoading(false);
         } catch (error) {
           console.error("Failed to fetch users events: ", error.message);
+          setIsLoading(false);
+          setIsError(true);
         }
       }
 
@@ -36,7 +40,10 @@ const MyEvents = () => {
       {isLoading && (
         <Loading loadingType="calendar" />
       )}
-      {(usersEvents.length === 0) && (
+      {isError && (
+        <Error />
+      )}
+      {(usersEvents.length === 0 && !isLoading && !isError) && (
         <div className='no-events'>
           <h2>You've not joined any events.</h2>
           <h2> Click the button below to view upcoming events.</h2>

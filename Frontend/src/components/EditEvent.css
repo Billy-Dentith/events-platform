@@ -39,6 +39,11 @@
   background-color: #a5d6a7;
   cursor: default;
 }
+.edit-event-form p {
+  font-size: 18px;
+  font-weight: bold;
+  text-align: center;
+}
 
 .event-desc .input-div {
   display: flex;
