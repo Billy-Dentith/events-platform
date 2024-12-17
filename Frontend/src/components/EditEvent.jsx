@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import {
   FaMapLocationDot,
   FaBuilding,
@@ -11,6 +11,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import "./EditEvent.css";
 import { editEvent } from "../api";
+import { AuthContext } from "../context/AuthContext";
 
 const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
   const [inputs, setInputs] = useState({
@@ -27,6 +28,8 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
   const [isDisabled, setIsDisabled] = useState(false);
 
   const futureDatesOnly = (date) => new Date() < date;
+
+    const { role } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -55,21 +58,25 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
       cost: inputs.cost,
     };
 
-    try {
-      const data = await editEvent(event._id, body); 
-      console.log("Event edited successfully: ", data);
+    if (role === "staff" || role === "admin") {
+      try {
+        const data = await editEvent(event._id, body); 
+        console.log("Event edited successfully: ", data);
 
-      Object.assign(event, body);
-      
-      setPatchStatus("Event changes saved successfully");
-      setIsEditingEvent(false); 
-    } catch (error) {
-      console.error("Failed to edit event: ", error.message);
+        Object.assign(event, body);
+        
+        setPatchStatus("Event changes saved successfully");
+        setIsEditingEvent(false); 
+      } catch (error) {
+        console.error("Failed to edit event: ", error.message);
 
-      setPatchStatus("Unable to save changes. Please try again later.");
-    } finally {
-      setIsDisabled(false);
-      setButtonText("Save Changes");
+        setPatchStatus("Unable to save changes. Please try again later.");
+      } finally {
+        setIsDisabled(false);
+        setButtonText("Save Changes");
+      }
+    } else {
+      alert("Unauthorised! You must be a member of staff to add events.")
     }
   };
 

@@ -5,7 +5,7 @@ import { AuthContext } from "../context/AuthContext";
 const StaffRoute = ({ children }) => {
   const { role } = useContext(AuthContext);
 
-  return role === "staff" ? children : <Navigate to="/unauthorized" />;
+  return role === "staff" ? children : <Navigate to="/unauthorised" />;
 };
 
 export default StaffRoute;
