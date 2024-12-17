@@ -1,5 +1,5 @@
 .staff-dashboard {
-  margin: auto;
+  flex: 1 0 auto;
   max-width: 1000px;
   display: flex;
   flex-direction: column;
