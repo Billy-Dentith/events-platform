@@ -32,6 +32,7 @@ const SignIn = () => {
   });
   const [passwordMatches, setPasswordMatches] = useState(true);
   const [isLoading, setIsLoading] = useState(false); 
+  const [errorMessage, setErrorMessage] = useState(""); 
 
   const navigate = useNavigate();
 
@@ -125,9 +126,15 @@ const SignIn = () => {
       console.log("Success: ", auth.currentUser.email);
     } catch (error) {
       console.log(error);
-    } finally {
-      setIsLoading(false); 
-    }
+
+      setIsLoading(false);
+      
+      if (error.code === "auth/invalid-credential") {
+        setErrorMessage("Incorrect email or password!");
+      } else {
+        setErrorMessage("Server error. Please try again later.")
+      }
+    } 
   };
 
   return (
@@ -168,6 +175,9 @@ const SignIn = () => {
           <button className="button">Sign In</button>
           {isLoading && (
             <Loading loadingType="spinner" />
+          )}
+          {errorMessage && (
+            <h2>{errorMessage}</h2>
           )}
         </form>
       ) : (
