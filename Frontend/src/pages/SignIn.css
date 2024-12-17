@@ -59,7 +59,7 @@
   font-size: 18px;
   font-weight: bold;
   width: 80%;
-  margin: 10px 0 75px 0;
+  margin: 10px 0 50px 0;
 }
 .account-form button:disabled {
   background-color: #a5d6a7;
@@ -67,6 +67,9 @@
 .account-form p {
   margin-top: 5px;
   height: 25px;
+}
+.account-form h2 {
+  text-align: center;
 }
 
 .password-checks {
