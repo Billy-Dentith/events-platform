@@ -120,6 +120,8 @@ const SignIn = () => {
         signInDetails.currentPassword
       );
 
+      navigate("/");
+      
       console.log("Success: ", auth.currentUser.email);
     } catch (error) {
       console.log(error);
