@@ -31,6 +31,7 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
   }, [user, event.attendees]);
 
   const handleJoin = async () => {
+    if (!user) alert("You must be signed in to join events. Please sign in. ")
     if (attendeesNumber < event.maxSpaces) {
       try {
         const data = await JoinEvent(event._id, auth.currentUser.uid);
