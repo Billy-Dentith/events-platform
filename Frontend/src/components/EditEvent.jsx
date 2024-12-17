@@ -29,7 +29,20 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
 
   const futureDatesOnly = (date) => new Date() < date;
 
-    const { role } = useContext(AuthContext);
+  const { role } = useContext(AuthContext);
+
+  const validateInputs = () => {
+    if (isNaN(inputs.spaces) || inputs.spaces < 0) {
+      setPatchStatus("Spaces must be a valid number.");
+      return false;
+    }
+    if (isNaN(inputs.cost) || inputs.cost < 0) {
+      setPatchStatus("Cost must be a valid number.");
+      return false;
+    }
+  
+    return true; 
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -43,6 +56,8 @@ const EditEvent = ({ event, eventTitle, setIsEditingEvent }) => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateInputs()) return;
 
     setIsDisabled(true);
     setButtonText("Saving Changes...");

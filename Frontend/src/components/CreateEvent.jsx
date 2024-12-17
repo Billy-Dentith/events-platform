@@ -26,6 +26,24 @@ const CreateEvent = () => {
 
   const { role } = useContext(AuthContext);
 
+  const validateInputs = () => {
+    if (!inputs.description || !inputs.location || !inputs.organizer) {
+      setPostStatus("All fields must be filled out.");
+      return false;
+    }
+  
+    if (isNaN(inputs.spaces) || inputs.spaces < 0) {
+      setPostStatus("Spaces must be a valid number.");
+      return false;
+    }
+    if (isNaN(inputs.cost) || inputs.cost < 0) {
+      setPostStatus("Cost must be a valid number.");
+      return false;
+    }
+  
+    return true; 
+  };
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -38,6 +56,8 @@ const CreateEvent = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!validateInputs()) return;
 
     setIsLoading(true);
     setIsDisabled(true);
