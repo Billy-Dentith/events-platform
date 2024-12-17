@@ -21,6 +21,13 @@ export const JoinEvent = async (eventId, uid) => {
   return response.data;
 };
 
+export const leaveEvent = async (eventId, uid) => {
+  const body = { uid };
+
+  const response = await eventsApi.patch(`events/${eventId}/leave`, body);
+  return response.data;
+}
+
 export const editEvent = async (eventId, eventData) => {
   const response = await eventsApi.patch(`/events/${eventId}/edit`, eventData);
   return response.data;

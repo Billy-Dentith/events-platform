@@ -6,10 +6,11 @@ import "./EventCard.css";
 import CalendarButton from "./GoogleCalendarButton";
 import EditEvent from "./EditEvent";
 import EventInfo from "./EventInfo";
-import { deleteEvent, JoinEvent } from "../api";
+import { deleteEvent, JoinEvent, leaveEvent } from "../api";
 
-const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => {
+const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, joinButton, calendarButton, leaveButton }) => {
   const [buttonText, setButtonText] = useState("Join Event");
+  const [leaveButtonText, setLeaveButtonText] = useState("Leave Event");
   const [isEditingEvent, setIsEditingEvent] = useState(false);
   const [eventTitle, setEventTitle] = useState(event.title);
   const [attendeesNumber, setAttendeesNumber] = useState(event.attendees.length);
@@ -46,6 +47,22 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
       console.error("Event is full");
     }
   };
+
+  const handleLeave = async (eventId) => {
+    setLeaveButtonText("Leaving Event..."); 
+    
+    try {
+      const data = await leaveEvent(event._id, auth.currentUser.uid);
+      console.log(data);
+
+      setAttendeesNumber((currAttendees) => currAttendees - 1);
+      setUsersEvents(usersEvents.filter((event) => event._id !== eventId));
+    } catch (error) {
+      console.error("Failed to leave event: ", error.message);
+    } finally {
+      setLeaveButtonText("Leave Event")
+    }
+  }
 
   const handleDelete = async (eventId) => {
     try {
@@ -93,6 +110,15 @@ const EventCard = ({ setEvents, events, event, joinButton, calendarButton }) => 
         </button>
       )}
       {calendarButton && !isEditingEvent && <CalendarButton event={event} />}
+      {leaveButton && !isEditingEvent && (
+        <button
+          onClick={() => handleLeave(event._id)}
+          className="join-button"
+          disabled={leaveButtonText === "Leaving Event..."}
+      >
+        {leaveButtonText}
+      </button>
+      )}
     </li>
   );
 };

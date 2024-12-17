@@ -59,6 +59,35 @@ exports.joinEvent = async (req, res) => {
   }
 };
 
+exports.leaveEvent = async (req, res) => {
+  const { event_id } = req.params;
+  const { uid } = req.body;
+
+  try {
+    const user = await User.findById(uid);
+    if (!user) res.status(404).send({ message: "User not found!" });
+
+    const event = await Event.findById(event_id);
+    if (!event) res.status(404).send({ message: "Event not found!" }); 
+
+    if (!user.events.includes(event_id)) {
+      return res.status(200).send({ message: "User has already left this event!" });
+    } else {
+      await User.updateOne({ _id: uid}, { $pull: { events: event_id }})
+    }    
+
+    if (!event.attendees.includes(uid)) {
+      return res.status(200).send({ message: "User has already left this event!" });
+    } else {
+      await Event.updateOne({ _id: event_id }, { $pull: { attendees: uid }})
+    }
+
+    res.status(200).send({ message: "User successfully left the event!" });
+  } catch (error) {
+    res.status(400).send({ message: error.message });
+  }
+}
+
 exports.addEvent = async(req, res) => {
   const { title, description, date, location, maxSpaces, category, organizer, cost } = req.body; 
 
