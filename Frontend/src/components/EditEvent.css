@@ -55,6 +55,7 @@
   gap: 5px;
 }
 .event-desc .date-picker {
-  width: 161%;
+  width: auto;
+  padding-right: 10px;
 }
 
