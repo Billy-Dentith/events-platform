@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import "./CreateEvent.css";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { addEvent } from "../api";
 import Loading from "./Loading";
+import { AuthContext } from "../context/AuthContext";
 
 const CreateEvent = () => {
   const [inputs, setInputs] = useState({
@@ -23,6 +24,8 @@ const CreateEvent = () => {
 
   const futureDatesOnly = (date) => new Date() < date;
 
+  const { role } = useContext(AuthContext);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
 
@@ -40,42 +43,46 @@ const CreateEvent = () => {
     setIsDisabled(true);
     setButtonText("Adding Event...");
 
-    try {
-      const body = {
-        title: inputs.title,
-        description: inputs.description,
-        date: date.toISOString(),
-        location: inputs.location,
-        maxSpaces: inputs.spaces,
-        category: inputs.category,
-        organizer: inputs.organizer,
-        cost: inputs.cost,
-      };
+    if (role === "staff" || role === "admin") {
+      try {
+        const body = {
+          title: inputs.title,
+          description: inputs.description,
+          date: date.toISOString(),
+          location: inputs.location,
+          maxSpaces: inputs.spaces,
+          category: inputs.category,
+          organizer: inputs.organizer,
+          cost: inputs.cost,
+        };
 
-      const data = await addEvent(body); 
-      console.log("Event added successfully: ", data);
+        const data = await addEvent(body); 
+        console.log("Event added successfully: ", data);
 
-      setPostStatus("Event posted successfully");
-      setInputs({
-        title: "",
-        description: "",
-        location: "",
-        spaces: 0,
-        category: "",
-        organizer: "",
-        cost: 0,
-      });
-      
-      e.target.reset();
+        setPostStatus("Event posted successfully");
+        setInputs({
+          title: "",
+          description: "",
+          location: "",
+          spaces: 0,
+          category: "",
+          organizer: "",
+          cost: 0,
+        });
+        
+        e.target.reset();
 
-    } catch (error) {
-      console.error("Failed to create event: ", error.message);
+      } catch (error) {
+        console.error("Failed to create event: ", error.message);
 
-      setPostStatus("Unable to post event. Please try again later.");
-    } finally {
-      setIsLoading(false);
-      setIsDisabled(false);
-      setButtonText("Add Event");
+        setPostStatus("Unable to post event. Please try again later.");
+      } finally {
+        setIsLoading(false);
+        setIsDisabled(false);
+        setButtonText("Add Event");
+      }
+    } else {
+      alert("Unauthorised! You must be a member of staff to add events.")
     }
   };
 
