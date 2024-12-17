@@ -11,9 +11,9 @@ const Footer = () => {
             <div className='footer-socials'>
                 <h4>Follow us </h4>
                 <div className='footer-socials-links'>
-                    <FaFacebook className='icons' />
-                    <FaInstagram className='icons' />
-                    <FaSquareXTwitter className='icons' />
+                    <a href='https://facebook.com'><FaFacebook className='icons' /></a>
+                    <a href='https://instagram.com'><FaInstagram className='icons' /></a>
+                    <a href='https://x.com'><FaSquareXTwitter className='icons' /></a>
                 </div>
             </div>
             <div className='footer-links'>
@@ -28,14 +28,14 @@ const Footer = () => {
                     Discover
                     <ul>
                         <li><Link className='footer-link' to="/events" >Find Events</Link></li>
-                        <li><Link className='footer-link' to="/events" >Online Events</Link></li>
+                        <li><Link className='footer-link' to="/my-events" >My Events</Link></li>
                     </ul>
                 </nav>
                 <nav className='footer-nav'>
                     Support
                     <ul>
-                        <li>About</li>
-                        <li>Contact Us</li>
+                        <li><Link className='footer-link' to="/" >About</Link></li>
+                        <li><a href='mailto: '>Contact Us</a></li>
                     </ul>
                 </nav>
             </div>
