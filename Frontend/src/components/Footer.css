@@ -71,3 +71,10 @@
 .copyright-logo {
   height: 11px;
 }
+.footer a {
+  text-decoration: none;
+  font-weight: inherit;
+  font-size: inherit;
+  color: inherit;
+  cursor: pointer;
+}

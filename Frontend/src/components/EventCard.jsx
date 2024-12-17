@@ -7,6 +7,7 @@ import CalendarButton from "./GoogleCalendarButton";
 import EditEvent from "./EditEvent";
 import EventInfo from "./EventInfo";
 import { deleteEvent, JoinEvent, leaveEvent } from "../api";
+import { useNavigate } from "react-router-dom";
 
 const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, joinButton, calendarButton, leaveButton }) => {
   const [buttonText, setButtonText] = useState("Join Event");
@@ -18,6 +19,8 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
   const created_at = event.date.replace("T", " ").substring(0, 16);
 
   const { user, role } = useContext(AuthContext);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (event.attendees.length === event.maxSpaces) {
@@ -40,6 +43,8 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
 
         setAttendeesNumber((currAttendees) => currAttendees + 1);
         setButtonText("Attending Event");
+        
+        navigate("/my-events")
       } catch (error) {
         console.error("Failed to join event: ", error.message);
       }
