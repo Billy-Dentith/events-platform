@@ -31,6 +31,8 @@ const MyEvents = () => {
       }
 
       getUsersEvents(); 
+    } else {
+      setIsLoading(false); 
     }
   }, [user])
 
@@ -43,7 +45,7 @@ const MyEvents = () => {
       {isError && (
         <Error />
       )}
-      {(usersEvents.length === 0 && !isLoading && !isError) && (
+      {(user && usersEvents.length === 0 && !isLoading && !isError) && (
         <div className='no-events'>
           <h2>You've not joined any events.</h2>
           <h2> Click the button below to view upcoming events.</h2>
@@ -53,6 +55,17 @@ const MyEvents = () => {
             </Link>
           </button>
         </div>
+      )}
+      {!user && (
+        <div className='no-events'>
+        <h2>Please sign in to access your events or sign up to discover and join our exciting events.</h2>
+        <h2> Click the button below.</h2>
+        <button>
+          <Link to="/account" className="link">
+              Sign In / Register
+          </Link>
+        </button>
+      </div>
       )}
       <ul className='events-list'>
         {usersEvents.map((event) => (
