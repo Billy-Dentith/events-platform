@@ -69,7 +69,7 @@ const MyEvents = () => {
       )}
       <ul className='events-list'>
         {usersEvents.map((event) => (
-          <EventCard key={event._id} event={event} calendarButton={true} />
+          <EventCard key={event._id} event={event} calendarButton={true} leaveButton={true} setUsersEvents={setUsersEvents} usersEvents={usersEvents} />
         ))}
       </ul>
     </div>

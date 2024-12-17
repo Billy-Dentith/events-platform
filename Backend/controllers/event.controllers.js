@@ -63,9 +63,6 @@ exports.leaveEvent = async (req, res) => {
   const { event_id } = req.params;
   const { uid } = req.body;
 
-  console.log(event_id, uid);
-  
-
   try {
     const user = await User.findById(uid);
     if (!user) res.status(404).send({ message: "User not found!" });
