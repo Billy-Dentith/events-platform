@@ -1,9 +1,13 @@
 .events-page {
   flex: 1 0 auto;
   max-width: 1000px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
 }
-.events-page h1 {
-  margin: 20px 10px;
+.events-page h1 { 
+  margin: 20px;
 }
 .events-page h2 {
   text-align: center;

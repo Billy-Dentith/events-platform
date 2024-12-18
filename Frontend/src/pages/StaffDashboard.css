@@ -3,7 +3,9 @@
   max-width: 1000px;
   display: flex;
   flex-direction: column;
+  margin: 0 auto;
+  width: 100%;
 }
 .staff-dashboard h1 {
-    margin: 20px 10px;
+    margin: 20px;
 }
