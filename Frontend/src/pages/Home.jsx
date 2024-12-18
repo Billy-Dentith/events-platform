@@ -56,7 +56,7 @@ const Home = () => {
             </button>
           )}
         </section>
-        <img src="./src/assets/nest.png" alt="nest image" />
+        <img src="/assets/nest.png" alt="nest image" />
       </section>
       <section className="featured-events">
         <h1>Featured Events</h1>

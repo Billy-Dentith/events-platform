@@ -21,7 +21,7 @@ const Header = () => {
       {/* LOGO */}
       <div className="header-logo">
         <Link to="/">
-          <img src="./src/assets/logo.png" alt="Logo" />
+          <img src="/assets/logo.png" alt="Logo" />
         </Link>
       </div>
       {/* NAV LINKS */}
