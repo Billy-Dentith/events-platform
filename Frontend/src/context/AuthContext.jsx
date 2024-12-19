@@ -2,7 +2,6 @@ import React, { createContext, useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { getIdToken } from "../../firebase/AuthService";
-import axios from "axios";
 import { getRole } from "../api";
 
 export const AuthContext = createContext();
@@ -38,7 +37,7 @@ export const AuthProvider = ({ children }) => {
 
           const response = await getRole(idToken); 
 
-          const fetchedRole = response.data.role;
+          const fetchedRole = response.role;
 
           setRole(fetchedRole);
           localStorage.setItem("role", fetchedRole);
