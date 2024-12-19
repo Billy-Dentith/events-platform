@@ -47,3 +47,12 @@ export const addUser = async (userData) => {
   const response = await eventsApi.post("/users", userData);
   return response.data;
 };
+
+export const getRole = async (idToken) => {
+  const response = await eventsApi.get("/users/get-role", {
+    headers: {
+      Authorization: `Bearer ${idToken}`,
+    },
+  });
+  return response.data; 
+}
