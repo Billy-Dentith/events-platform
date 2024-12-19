@@ -3,6 +3,7 @@ import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { getIdToken } from "../../firebase/AuthService";
 import axios from "axios";
+import { getRole } from "../api";
 
 export const AuthContext = createContext();
 
@@ -35,14 +36,7 @@ export const AuthProvider = ({ children }) => {
             throw new Error("ID Token is null or undefined");
           }
 
-          const response = await axios.get(
-            "http://localhost:5500/api/users/get-role",
-            {
-              headers: {
-                Authorization: `Bearer ${idToken}`,
-              },
-            }
-          );
+          const response = await getRole(idToken); 
 
           const fetchedRole = response.data.role;
 
