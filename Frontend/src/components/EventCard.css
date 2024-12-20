@@ -17,8 +17,10 @@
   align-items: flex-start;
   justify-content: space-between;
 }
-.event-header h3 {
+.event-header .event-title {
   margin: 0;
+  font-size: 20px;
+  text-align: left;
 }
 .event-header input {
   width: 75%;
@@ -40,7 +42,7 @@
   padding: 6px;
   font-size: 18px;
 }
-.edit-delete .button {
+.edit-delete .edit-button, .delete-button {
   padding: 0;
   margin: 0;
   border: none;

@@ -11,9 +11,9 @@ const Footer = () => {
             <div className='footer-socials'>
                 <h4>Follow us </h4>
                 <div className='footer-socials-links'>
-                    <a href='https://facebook.com'><FaFacebook className='icons' /></a>
-                    <a href='https://instagram.com'><FaInstagram className='icons' /></a>
-                    <a href='https://x.com'><FaSquareXTwitter className='icons' /></a>
+                    <a href='https://facebook.com' aria-label='Facebook'><FaFacebook className='icons' /></a>
+                    <a href='https://instagram.com' aria-label='Instagram'><FaInstagram className='icons' /></a>
+                    <a href='https://x.com' aria-label='Twitter'><FaSquareXTwitter className='icons' /></a>
                 </div>
             </div>
             <div className='footer-links'>
