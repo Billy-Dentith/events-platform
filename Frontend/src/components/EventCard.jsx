@@ -84,7 +84,7 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
     <li key={event._id} className="event-card">
       <div className="event-header">
         {!isEditingEvent && (
-          <h3>{event.title}</h3>
+          <h2 className="event-title">{event.title}</h2>
         )}
         {isEditingEvent && (
             <input id="title" name="title" placeholder={event.title} onChange={(e) => setEventTitle(e.target.value)}></input>
@@ -92,12 +92,16 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
         {role === "staff" && (
           <div className="edit-delete">
             <button
-              className="button"
+              className="edit-button"
+              aria-label="Edit"
               onClick={() => setIsEditingEvent(!isEditingEvent)}
             >
               <FaPencil id="icon" />
             </button>
-            <button className="button" onClick={() => handleDelete(event._id)}>
+            <button 
+              className="delete-button" 
+              aria-label="Delete"
+              onClick={() => handleDelete(event._id)}>
               <FaRegTrashCan id="icon" />
             </button>
           </div>

@@ -48,6 +48,7 @@ const Header = () => {
         <Link
           to="/account"
           className="icon"
+          aria-label="Account"
           onClick={() => setIsMobileMenuOpen(false)}
         >
           <FaCircleUser />
