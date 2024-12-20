@@ -1,6 +1,6 @@
 # Event Nest
 
-Visit the hosted site at ... 
+Visit the hosted site at: https://event-nest-bd.netlify.app/
 
 ## Summary 
 
@@ -33,13 +33,15 @@ This will allow you to view and join events on the platform.
 
 This will allow you to create and edit events on the platform.
 
+Please note: You are also able to register and set-up your own account, but this will only be granted user privileges, and therefore you will only be able to join events and add them to your Google calendar. 
+
 ## Running the Project Locally
 
 Follow these instructions to run the project on your local machine: 
 
 ### Prerequisites
 - Ensure you have node.js and npm installed. You can download them from nodejs.org.
-- Set up a MongoDB database with some test data. 
+- Set up a MongoDB database with some test data, following the schemas laid out in Backend/models/....
 - Set up a firebase project. 
 
 ### Clone the Repo
@@ -102,4 +104,4 @@ VITE_API_BASE_URL=http://localhost:5000/api
 npm run dev
 ```
 
-- The web application should now running and can be opened by clicking the link within the terminal. 
+- The web application should now be running and can be opened by clicking the link within the terminal. 
