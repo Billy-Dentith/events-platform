@@ -11,6 +11,7 @@ export const AuthProvider = ({ children }) => {
   const [role, setRole] = useState(() => {
     return localStorage.getItem("role") || null;
   });
+  const [isUserAdded, setIsUserAdded] = useState(false); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -27,7 +28,7 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchRole = async () => {
-      if (user && role === null) {
+      if (user && role === null && isUserAdded) {
         try {
           const idToken = await getIdToken();
 
@@ -43,12 +44,20 @@ export const AuthProvider = ({ children }) => {
           localStorage.setItem("role", fetchedRole);
         } catch (error) {
           console.error("Error fetching role: ", error);
+
+          const fallbackRole = "user"
+          setRole(fallbackRole);
+          localStorage.setItem("role", fallbackRole);
+
+          console.log("Assigned default role of 'user'");
         }
       }
     };
 
     fetchRole();
-  }, [user, role]);
+  }, [user, role, isUserAdded]);
+
+  const markUserAsAdded = () => setIsUserAdded(true);
 
   const handleSignOut = async () => {
     try {
