@@ -77,6 +77,7 @@ const SignIn = () => {
 
     if (inputs.password !== inputs.confirmPassword) {
       alert("Passwords do not match!");
+      setIsLoading(false); 
       return;
     }
 
@@ -98,13 +99,11 @@ const SignIn = () => {
       };
 
       const data = await addUser(body);
-      console.log(data);
+      console.log("User created: ", data);
       
       navigate("/");
-
-      console.log("User created successfully!");
     } catch (error) {
-      console.error(error.message);
+      console.error("Sign-up error: ", error.message);
     } finally {
       setIsLoading(false);
     }
