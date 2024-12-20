@@ -27,7 +27,7 @@ const Footer = () => {
                 <nav className='footer-nav'>
                     Discover
                     <ul>
-                        <li><Link className='footer-link' to="/events" >Find Events</Link></li>
+                        <li><Link className='footer-link' to="/events" >Events</Link></li>
                         <li><Link className='footer-link' to="/my-events" >My Events</Link></li>
                     </ul>
                 </nav>
