@@ -1,7 +1,6 @@
 .footer {
   background-color: #212121;
   color: white;
-  height: 400px;
   flex-shrink: 0;
 }
 .footer-content {
@@ -59,6 +58,7 @@
 .footer-nav ul {
   list-style: none;
   padding-left: 10px;
+  margin: 10px 0;
 }
 .footer-nav li {
   color: #c5c4c4;
@@ -77,4 +77,5 @@
   font-size: inherit;
   color: inherit;
   cursor: pointer;
+  padding: 0;
 }

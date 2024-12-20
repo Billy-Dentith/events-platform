@@ -13,6 +13,8 @@
 }
 .error-page p {
   font-size: 18px;
+  color: #002100;
+  margin-top: 0px;
 }
 .error-page button {
   border: none;
@@ -25,4 +27,7 @@
   font-weight: bold;
   width: 75%;
   margin: 10px;
+}
+.error-page h1 {
+  color: #002100;
 }
