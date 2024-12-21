@@ -12,7 +12,7 @@ const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { user } = useContext(AuthContext);
+  const { currentUser } = useContext(AuthContext);
 
   useEffect(() => {
     const getEvents = async () => {
@@ -48,7 +48,7 @@ const Home = () => {
             Whatever your passion, thousands share it too. Events Nest is here
             to help you find your community and make meaningful connections.
           </p>
-          {!user && (
+          {!currentUser && (
             <button className="button">
               <Link to="/account" className="link">
                 Join Event Nest

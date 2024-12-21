@@ -2,67 +2,110 @@ import React, { createContext, useEffect, useState } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { auth } from "../../firebase/firebase";
 import { getIdToken } from "../../firebase/AuthService";
-import { getRole } from "../api";
+import { getRole, addUser } from "../api";
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  signInWithEmailAndPassword,
+} from "@firebase/auth";
 
 export const AuthContext = createContext();
 
 export const AuthProvider = ({ children }) => {
-  const [user, setUser] = useState(null);
-  const [role, setRole] = useState(() => {
-    return localStorage.getItem("role") || null;
-  });
-  const [isUserAdded, setIsUserAdded] = useState(false); 
+  const [currentUser, setCurrentUser] = useState(null);
+  const [role, setRole] = useState(null);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
-      setUser(user);
+      setCurrentUser(user);
 
-      if (!user) {
-        setRole(null);
+      if (user) {
+        console.log("User signed in: ", user);
+      } else {
+        setRole(null); 
         localStorage.removeItem("role");
       }
     });
 
     return () => unsubscribe();
   }, []);
+  
+  const fetchRole = async () => {
+    try {
+      const idToken = await getIdToken();
 
-  useEffect(() => {
-    const fetchRole = async () => {
-      if (user && role === null && isUserAdded) {
-        try {
-          const idToken = await getIdToken();
-
-          if (!idToken) {
-            throw new Error("ID Token is null or undefined");
-          }
-
-          const response = await getRole(idToken); 
-
-          const fetchedRole = response.role;
-
-          setRole(fetchedRole);
-          localStorage.setItem("role", fetchedRole);
-        } catch (error) {
-          console.error("Error fetching role: ", error);
-
-          const fallbackRole = "user"
-          setRole(fallbackRole);
-          localStorage.setItem("role", fallbackRole);
-
-          console.log("Assigned default role of 'user'");
-        }
+      if (!idToken) {
+        throw new Error("ID Token is null or undefined");
       }
-    };
 
-    fetchRole();
-  }, [user, role, isUserAdded]);
+      const response = await getRole(idToken); 
+      console.log("Role fetched from API: ", response.role);
 
-  const markUserAsAdded = () => setIsUserAdded(true);
+      return response.role; 
+    } catch (error) {
+      console.error("Error fetching role: ", error);
+
+      return null; 
+    }
+  };
+
+  const handleSignUp = async (inputs) => {
+    try {
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        inputs.email,
+        inputs.password
+      );
+      await updateProfile(userCredential.user, { displayName: inputs.name });
+
+      const { uid, displayName, email } = userCredential.user;
+
+      const body = {
+        uid,
+        name: displayName,
+        email,
+        role: "attendee",
+      };
+
+      const data = await addUser(body);
+
+      const fetchedRole = await fetchRole();
+
+      setRole(fetchedRole);
+      localStorage.setItem("role", fetchedRole);
+
+      console.log("User created: ", data);
+    } catch (error) {
+      console.error("Sign-up error: ", error.message);
+    }
+  };
+
+  const handleSignIn = async (signInDetails) => {
+    try {
+      await signInWithEmailAndPassword(
+        auth,
+        signInDetails.email,
+        signInDetails.currentPassword
+      );
+
+      const fetchedRole = await fetchRole();
+      
+      setRole(fetchedRole);
+      localStorage.setItem("role", fetchedRole);
+      
+      console.log("Success: ", auth.currentUser.email);
+    } catch (error) {
+      console.log(error);
+      return error.code;
+    } 
+  };
 
   const handleSignOut = async () => {
     try {
       await signOut(auth);
-      setUser(null);
+      setCurrentUser(null);
+      setRole(null);
+      localStorage.removeItem("role");
       console.log("User signed out successfully!");
     } catch (error) {
       console.error("Sign out error: ", error.message);
@@ -70,7 +113,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ user, role, setUser, handleSignOut }}>
+    <AuthContext.Provider value={{ currentUser, role, setRole, handleSignUp, handleSignIn, handleSignOut }}>
       {children}
     </AuthContext.Provider>
   );

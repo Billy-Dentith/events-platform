@@ -1,16 +1,9 @@
-import React, { useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  signInWithEmailAndPassword,
-} from "@firebase/auth";
-import { useNavigate } from "react-router-dom";
-import { auth } from "../../firebase/firebase";
+import React, { useContext, useState } from "react";
 import ShowHidePassword from "../components/ShowHidePassword";
 import { FaCheck } from "react-icons/fa6";
 import "./SignIn.css";
-import { addUser } from "../api";
 import Loading from "../components/Loading";
+import { AuthContext } from "../context/AuthContext";
 
 const SignIn = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -34,7 +27,7 @@ const SignIn = () => {
   const [isLoading, setIsLoading] = useState(false); 
   const [errorMessage, setErrorMessage] = useState(""); 
 
-  const navigate = useNavigate();
+  const { handleSignUp, handleSignIn } = useContext(AuthContext); 
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -71,7 +64,7 @@ const SignIn = () => {
     }
   };
 
-  const handleSignUp = async (e) => {
+  const signUp = async (e) => {
     e.preventDefault();
     setIsLoading(true);
 
@@ -82,59 +75,33 @@ const SignIn = () => {
     }
 
     try {
-      const userCredential = await createUserWithEmailAndPassword(
-        auth,
-        inputs.email,
-        inputs.password
-      );
-      await updateProfile(userCredential.user, { displayName: inputs.name });
-
-      const { uid, displayName, email } = userCredential.user;
-
-      const body = {
-        uid,
-        name: displayName,
-        email,
-        role: "attendee",
-      };
-
-      const data = await addUser(body);
-      console.log("User created: ", data);
-      
-      navigate("/");
+      await handleSignUp(inputs);
     } catch (error) {
-      console.error("Sign-up error: ", error.message);
+      console.error(error.message);
     } finally {
       setIsLoading(false);
     }
-  };
+  }
 
-  const handleSignIn = async (e) => {
+  const signIn = async (e) => {
     e.preventDefault();
-    setIsLoading(true); 
+    setIsLoading(true);
 
     try {
-      await signInWithEmailAndPassword(
-        auth,
-        signInDetails.email,
-        signInDetails.currentPassword
-      );
+      const response = await handleSignIn(signInDetails);
 
-      navigate("/");
-      
-      console.log("Success: ", auth.currentUser.email);
-    } catch (error) {
-      console.log(error);
-
-      setIsLoading(false);
-      
-      if (error.code === "auth/invalid-credential") {
+      if (response === "auth/invalid-credential") {
         setErrorMessage("Incorrect email or password!");
       } else {
         setErrorMessage("Server error. Please try again later.")
       }
-    } 
-  };
+    } catch (error) {
+      console.error(error.message);
+    } finally {
+      setIsLoading(false);
+    }
+  }
+  
 
   return (
     <div className="sign-in-page">
@@ -153,7 +120,7 @@ const SignIn = () => {
         </li>
       </ul>
       {isLogin ? (
-        <form className="account-form" onSubmit={handleSignIn}>
+        <form className="account-form" onSubmit={signIn}>
           <label htmlFor="email">Email</label>
           <input
             className="input"
@@ -180,7 +147,7 @@ const SignIn = () => {
           )}
         </form>
       ) : (
-        <form className="account-form" onSubmit={handleSignUp}>
+        <form className="account-form" onSubmit={signUp}>
           <label htmlFor="name">Full Name</label>
           <input
             className="input"

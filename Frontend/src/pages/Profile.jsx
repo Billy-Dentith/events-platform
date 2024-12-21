@@ -3,7 +3,7 @@ import { AuthContext } from '../context/AuthContext';
 import "./Profile.css";
 
 const Profile = () => {
-  const { handleSignOut } = useContext(AuthContext)
+  const { handleSignOut } = useContext(AuthContext);
   
   return (
     <div className='profile-page'>
