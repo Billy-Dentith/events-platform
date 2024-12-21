@@ -12,11 +12,11 @@ const MyEvents = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [isError, setIsError] = useState(false);
 
-  const { user } = useContext(AuthContext);  
+  const { currentUser } = useContext(AuthContext);  
 
   useEffect(() => {
-    if (user) {
-      const uid = user.uid;      
+    if (currentUser) {
+      const uid = currentUser.uid;      
 
       const getUsersEvents = async () => {
         try {
@@ -34,7 +34,7 @@ const MyEvents = () => {
     } else {
       setIsLoading(false); 
     }
-  }, [user])
+  }, [currentUser])
 
   return (
     <div className='events-page'>
@@ -45,7 +45,7 @@ const MyEvents = () => {
       {isError && (
         <Error />
       )}
-      {(user && usersEvents.length === 0 && !isLoading && !isError) && (
+      {(currentUser && usersEvents.length === 0 && !isLoading && !isError) && (
         <div className='no-events'>
           <h2>You've not joined any events.</h2>
           <h2> Click the button below to view upcoming events.</h2>
@@ -56,7 +56,7 @@ const MyEvents = () => {
           </button>
         </div>
       )}
-      {!user && (
+      {!currentUser && (
         <div className='no-events'>
         <h2>Please sign in to access your events or sign up to discover and join our exciting events.</h2>
         <h2> Click the button below.</h2>

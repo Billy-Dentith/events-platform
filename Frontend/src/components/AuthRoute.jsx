@@ -4,9 +4,9 @@ import Profile from "../pages/Profile";
 import SignIn from '../pages/SignIn';
 
 const AuthRoute = () => {
-  const { user } = useContext(AuthContext);   
+  const { currentUser } = useContext(AuthContext);   
 
-  if (user) {
+  if (currentUser) {
     return (
       <Profile />
     )  

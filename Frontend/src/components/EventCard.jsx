@@ -18,7 +18,7 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
 
   const created_at = event.date.replace("T", " ").substring(0, 16);
 
-  const { user, role } = useContext(AuthContext);
+  const { currentUser, role } = useContext(AuthContext);
 
   const navigate = useNavigate();
 
@@ -27,15 +27,15 @@ const EventCard = ({ setEvents, events, setUsersEvents, usersEvents, event, join
       setButtonText("Event Full");
     }
 
-    if (user) {
-      if (event.attendees.some((el) => el._id === user.uid)) {
+    if (currentUser) {
+      if (event.attendees.some((el) => el._id === currentUser.uid)) {
         setButtonText("Attending Event");
       }
     }
-  }, [user, event.attendees]);
+  }, [currentUser, event.attendees]);
 
   const handleJoin = async () => {
-    if (!user) alert("You must be signed in to join events. Please sign in. ")
+    if (!currentUser) alert("You must be signed in to join events. Please sign in. ")
     if (attendeesNumber < event.maxSpaces) {
       try {
         const data = await JoinEvent(event._id, auth.currentUser.uid);
