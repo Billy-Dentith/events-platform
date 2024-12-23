@@ -2,6 +2,8 @@
 
 Visit the hosted site at: https://event-nest-bd.netlify.app/
 
+Please note: The backend is currently hosted on a free tier, so it may take a little time for the events to render upon the first load of the application. This is because the service spins down when idle and spins back up upon receiving a request. 
+
 ## Summary 
 
 Event Nest is a full-stack event management platform designed to connect users with events in their area. The platform allows users to discover, sign up for, and manage events easily. Users can also add their events to their Google calendar seamlessly. 
